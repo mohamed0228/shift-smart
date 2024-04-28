@@ -9,6 +9,7 @@ const ContactWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 80vh;
+  margin:10px;
 `;
 
 const ContactPage = () => {

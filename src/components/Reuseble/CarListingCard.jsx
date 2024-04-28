@@ -7,15 +7,16 @@ const CardContainer = styled.div`
   padding: 16px;
   /* overflow:scroll; */
   margin-bottom:100px;
-  max-width:400px;
-  max-height:400px;
+  max-width:300px;
+  max-height:300px;
+  background-color:black;
   
 `;
 
 
 const CarImage = styled.img`
   width: 80%; /* Set the desired width */
-  height: 60%; /* Maintain aspect ratio */
+  height: 40%; /* Maintain aspect ratio */
   border-radius: 8px;
   cursor: pointer;
   margin-left:10%;
