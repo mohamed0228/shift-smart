@@ -9,15 +9,13 @@ import Home from "./pages/Home/Home";
 const App = () => {
   return (
     <Router>
-      <div>
-        {/* Common layout components like header, footer, etc. can go here */}
-        {/* Define routes */}
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          {/* <Route path="/about" element={<About />} />
+      {/* Common layout components like header, footer, etc. can go here */}
+      {/* Define routes */}
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        {/* <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} /> */}
-        </Routes>
-      </div>
+      </Routes>
     </Router>
   );
 };
