@@ -69,14 +69,29 @@ const cars = [
     images: [car1, car2, car3, car4, car5, car6, car7],
   },
   {
-    model: "Volvo C70 T5",
-    description: "A rare convertible car known for its reliability.",
-    images: [car1, car2, car3, car4, car5, car6, car7],
+    model: "Tiguan vw",
+    description: "A reliable sedan with great fuel efficiency.",
+    images: [car8, car9, car10, car11, car12, car13],
   },
   {
     model: "Volvo C70 T5",
     description: "A rare convertible car known for its reliability.",
     images: [car1, car2, car3, car4, car5, car6, car7],
+  },
+  {
+    model: "Tiguan vw",
+    description: "A reliable sedan with great fuel efficiency.",
+    images: [car8, car9, car10, car11, car12, car13],
+  },
+  {
+    model: "Volvo C70 T5",
+    description: "A rare convertible car known for its reliability.",
+    images: [car1, car2, car3, car4, car5, car6, car7],
+  },
+  {
+    model: "Tiguan vw",
+    description: "A reliable sedan with great fuel efficiency.",
+    images: [car8, car9, car10, car11, car12, car13],
   },
 ];
 
