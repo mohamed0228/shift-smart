@@ -2,8 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ContactUsImage from '../../../Images/ContactUs/contactUSimg.jpg'
-import ContactUsImage2 from '../../../Images/ContactUs/contactUs2.jpeg'
-import ContactUsImage3 from '../../../Images/ContactUs/contactUs3.jpeg'
+// import ContactUsImage2 from '../../../Images/ContactUs/contactUs2.jpeg'
+// import ContactUsImage3 from '../../../Images/ContactUs/contactUs3.jpeg'
 const ImageWrapper = styled.div`
   flex: 1;
   
