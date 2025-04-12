@@ -403,20 +403,30 @@ const MapContainer = styled.div`
 // Theme toggle
 const ToggleThemeBtn = styled.button`
   position: fixed;
-  bottom: 20px;
+  bottom: 90px; /* Place it above the footer */
   right: 20px;
-  background: ${({ theme }) => theme.accent};
-  color: #000;
+  background: ${({ theme }) => theme.toggleBg || '#ffcc00'};
+  color: ${({ theme }) => theme.toggleText || '#000'};
   border: none;
   padding: 12px 20px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: bold;
-  z-index: 99;
+  font-size: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  z-index: 2000;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background: ${({ theme }) => theme.toggleHoverBg || '#ffd700'};
+  }
 
   @media (max-width: 480px) {
     font-size: 0.9rem;
-    padding: 10px 15px;
+    padding: 10px 16px;
+    bottom: 85px;
+    right: 15px;
   }
 `;
 

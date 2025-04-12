@@ -1,117 +1,198 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const NavbarWrapper = styled.div`
+const NavbarWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: #000000;
-  padding: 10px 20px;
-  z-index: 1000;
+  background: linear-gradient(45deg, #0f0f0f, #1a1a1a);
+  padding: 15px 25px;
+  z-index: 1500;
+  box-shadow: ${({ isScrolled }) =>
+    isScrolled ? '0 4px 15px rgba(0, 0, 0, 0.6)' : 'none'};
+  transition: box-shadow 0.3s ease;
 
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-
-    li {
-      display: inline-block;
-      margin-left: 10px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      button {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 10px 20px;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-
-        &:hover {
-          background-color: #555;
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    ul {
-      display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: #333;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
-      li {
-        display: block;
-        margin: 10px 0;
-
-        &:first-child {
-          margin-top: 0;
-        }
-      }
-    }
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
   }
 `;
 
 const Logo = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin: 0;
-  color: #ffffff;
+  color: #ffcc00;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const NavLinks = styled.ul`
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+    background-color: #1a1a1a;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const NavItem = styled.li`
+  margin-left: 20px;
+
+  @media (max-width: 768px) {
+    margin: 10px 0;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+`;
+
+const NavButton = styled.button`
+  background: none;
+  border: none;
+  color: ${({ active }) => (active ? '#ffcc00' : '#eee')};
+  font-size: 1rem;
+  font-weight: ${({ active }) => (active ? '700' : '500')};
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #ffcc00;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: ${({ active }) => (active ? '100%' : '0')};
+    height: 2px;
+    background-color: #ffcc00;
+    transition: width 0.3s ease, left 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
 `;
 
 const ToggleButton = styled.button`
   display: none;
 
-  @media screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: block;
     background: none;
     border: none;
-    color: white;
-    font-size: 1.5rem;
+    color: #ffcc00;
+    font-size: 2rem;
     cursor: pointer;
+    margin-left: auto;
   }
 `;
 
 const Navbar = ({ changeContent }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
+  const toggleNav = () => setIsNavOpen(!isNavOpen);
+
+  const handleNavItemClick = (section) => {
+    changeContent(section);
+    setActiveSection(section);
+    setIsNavOpen(false);
   };
 
-  const handleNavItemClick = () => {
-    setIsNavOpen(false); // Close the modal list when any navigation item is clicked
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <NavbarWrapper isOpen={isNavOpen}>
+    <NavbarWrapper isScrolled={isScrolled}>
       <Logo>Shift Smart</Logo>
-      <ul>
-        <li><button onClick={() => { changeContent('home'); handleNavItemClick(); }}>Home</button></li>
-        <li><button onClick={() => { changeContent('about'); handleNavItemClick(); }}>About</button></li>
-        <li><button onClick={() => { changeContent('shop'); handleNavItemClick(); }}>Shop Cars</button></li>
-        <li><button onClick={() => { changeContent('sellTrade'); handleNavItemClick(); }}>Sell/Trade</button></li>
-        <li><button onClick={() => { changeContent('contact'); handleNavItemClick(); }}>Contact</button></li>
-      </ul>
-      <ToggleButton onClick={toggleNav}>{isNavOpen ? '✕' : '☰'}</ToggleButton>
+
+      <ToggleButton onClick={toggleNav}>
+        {isNavOpen ? '✕' : '☰'}
+      </ToggleButton>
+
+      <NavLinks isOpen={isNavOpen}>
+        <NavItem>
+          <NavButton
+            active={activeSection === 'home'}
+            onClick={() => handleNavItemClick('home')}
+          >
+            Home
+          </NavButton>
+        </NavItem>
+        <NavItem>
+          <NavButton
+            active={activeSection === 'about'}
+            onClick={() => handleNavItemClick('about')}
+          >
+            About
+          </NavButton>
+        </NavItem>
+        <NavItem>
+          <NavButton
+            active={activeSection === 'shop'}
+            onClick={() => handleNavItemClick('shop')}
+          >
+            Shop Cars
+          </NavButton>
+        </NavItem>
+        <NavItem>
+          <NavButton
+            active={activeSection === 'sellTrade'}
+            onClick={() => handleNavItemClick('sellTrade')}
+          >
+            Sell/Trade
+          </NavButton>
+        </NavItem>
+        <NavItem>
+          <NavButton
+            active={activeSection === 'contact'}
+            onClick={() => handleNavItemClick('contact')}
+          >
+            Contact
+          </NavButton>
+        </NavItem>
+      </NavLinks>
     </NavbarWrapper>
   );
 };
 
 export default Navbar;
-
-
